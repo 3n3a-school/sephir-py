@@ -1,10 +1,10 @@
+from argparse import Action
 import os
 from time import sleep
 from urllib.parse import urlparse
 from dotenv import dotenv_values, load_dotenv
 from selenium import webdriver
-from selenium.webdriver import FirefoxOptions
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver import FirefoxOptions, Keys, ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -85,6 +85,7 @@ class App:
     def savePage(self, name):
         # save image
         self.driver.maximize_window()
+        ActionChains(self.driver).key_down(Keys.CONTROL).send_keys("-").perform()
         body = self.driver.find_element(By.TAG_NAME, "body")
         with open(f"{name}.png", "wb") as f:
             f.write(body.screenshot_as_png)
@@ -126,6 +127,7 @@ class App:
 
             mark = self.driver.find_element(By.XPATH, "/html/body/table[1]/tbody/tr[9]/td/table[4]/tbody/tr[4]/td[3]/div/b")
             marks.append({"uk": counter, "mark": mark.get_attribute("value")})
+        print(marks)
                 
 
     def close(self):
