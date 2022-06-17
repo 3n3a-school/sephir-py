@@ -26,7 +26,7 @@ class App:
         options.add_argument("--start-maximized")
         options.set_preference("browser.download.dir", "C:\\Users\\enea\\Downloads\\")
         options.set_preference("browser.download.folderList", 2)
-        options.set_preference("browser.helperApps.neverAsk.saveToDisk", ["application/pdf"])
+        options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/pdf")
         options.set_preference("print.always_print_silent", True)
         options.set_preference("print.printer_Mozilla_Save_to_PDF.print_to_file", True)
         options.set_preference("print_printer", "Mozilla Save to PDF")
@@ -82,8 +82,8 @@ class App:
         self.uk_urls = uk_urls
 
     def savePage(self, name):
-        self.driver.execute_script("window.print();")
-        self.driver.implicitly_wait(2)
+        # self.driver.execute_script("window.print();")
+        # self.driver.implicitly_wait(2)
         self.driver.save_screenshot(f"{name}.png")
 
     def getUKMarks(self):
