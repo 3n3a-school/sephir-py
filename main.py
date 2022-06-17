@@ -1,4 +1,5 @@
 import os
+from time import sleep
 from urllib.parse import urlparse
 from dotenv import dotenv_values, load_dotenv
 from selenium import webdriver
@@ -82,9 +83,12 @@ class App:
         self.uk_urls = uk_urls
 
     def savePage(self, name):
-        # self.driver.execute_script("window.print();")
-        # self.driver.implicitly_wait(2)
-        self.driver.save_screenshot(f"{name}.png")
+        # save image
+        self.driver.maximize_window()
+        body = self.driver.find_element(By.TAG_NAME, "body")
+        with open(f"{name}.png", "wb") as f:
+            f.write(body.screenshot_as_png)
+            f.close()
 
     def getUKMarks(self):
         marks=[]
@@ -119,6 +123,9 @@ class App:
                 self.savePage(f"uk_{counter}")
             except TimeoutException:
                 self.savePage(f"uk_{counter}")
+
+            mark = self.driver.find_element(By.XPATH, "/html/body/table[1]/tbody/tr[9]/td/table[4]/tbody/tr[4]/td[3]/div/b")
+            marks.append({"uk": counter, "mark": mark.get_attribute("value")})
                 
 
     def close(self):
