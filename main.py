@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -26,5 +27,11 @@ class App:
         password.send_keys(self.user.get("password"))
         submitBtn.click()
 
+def main(app):
+    app.openLogin()
+    app.fillLoginForm()
+
 if __name__=="__main__":
-    main()
+    main(
+        App()
+    )
