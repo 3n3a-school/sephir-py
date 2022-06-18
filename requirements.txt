@@ -1,3 +1,4 @@
 selenium==4.2.0
 python-dotenv==0.20.0
 webdriver-manager==3.7.0
+xvfbwrapper==0.2.9

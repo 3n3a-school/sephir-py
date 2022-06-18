@@ -4,9 +4,9 @@
 
 tasks:
   - command: sudo apt update
-  - command: sudo apt install -y firefox
-  - command: bash .scripts/install-webdriver.sh
+  - command: sudo apt install -y firefox xvfb
+ # - command: bash .scripts/install-webdriver.sh
   - command: pip install -r requirements.txt
-  - command: python main.py
+#  - command: python main.py
 
 

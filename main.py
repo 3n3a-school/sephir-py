@@ -1,5 +1,6 @@
 from argparse import Action
 import os
+from xvfbwrapper import Xvfb
 from time import sleep
 from urllib.parse import urlparse
 from dotenv import dotenv_values, load_dotenv
@@ -73,6 +74,7 @@ class App:
 
     def getUKList(self):
         uk_table_path = "/html/body/table[2]"
+        self.wait.until(EC.presence_of_element_located((By.XPATH, uk_table_path)))
         uk_table = self.driver.find_element(By.XPATH, uk_table_path)
         uk_list = uk_table.find_elements(By.CLASS_NAME, "dsicon")
         uk_urls = []
@@ -134,6 +136,9 @@ class App:
         self.driver.quit()
 
 def main(app):
+    vdi = Xvfb()
+    vdi.start()
+
     app.openLogin()
     app.fillLoginForm()
     app.getTokens()
@@ -141,6 +146,8 @@ def main(app):
     app.getUKList()
     app.getUKMarks()
     app.close()
+
+    vdi.stop()
 
 if __name__=="__main__":
     main(
